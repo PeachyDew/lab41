@@ -121,6 +121,10 @@ namespace lab41
 
         private void Form1_KeyDown_1(object sender, KeyEventArgs e)
         {
+            if (e.KeyValue == ((char)Keys.Delete))
+            {
+                Delete_Process(null);
+            }
         }
 
         }
