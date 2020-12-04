@@ -1,0 +1,10 @@
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.csprojAssemblyReference.cache
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.Properties.Resources.resources
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.csproj.GenerateResource.cache
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.csproj.CoreCompileInputs.cache
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.Form1.resources
+D:\c++\azaamat\2 курс\lab41\lab41\bin\Debug\lab41.exe.config
+D:\c++\azaamat\2 курс\lab41\lab41\bin\Debug\lab41.exe
+D:\c++\azaamat\2 курс\lab41\lab41\bin\Debug\lab41.pdb
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.exe
+D:\c++\azaamat\2 курс\lab41\lab41\obj\Debug\lab41.pdb
