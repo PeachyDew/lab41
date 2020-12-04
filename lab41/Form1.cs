@@ -22,30 +22,30 @@ namespace lab41
         {
             for (int i = 0; i < Circle.GetTotalElements(); i++)
             {
-                Circle.GetNow().Draw(e);
-                Circle.GetNext();
+                Circle.GetNow().Draw(e); //отрисовка нового круга 
+                Circle.GetNext(); // указатель на следующий
             }
-            Circle.Get0();
+            Circle.Get0(); 
         }
 
-        
-        void Delete_Process(EventArgs e)
+        void Delete_Process(EventArgs e) //процесс удаления элемента/ов
         {
             int k = 0;
-            for (int i = 0; i < (Circle.GetTotalElements() - 1); i++)
+            for (int i = 0; i < (Circle.GetTotalElements() - 1); i++) //сдвиг счетчика на последний элемент
             {
-                Circle.GetNext();
+                Circle.GetNext(); 
             }
+
             for (int i = Circle.GetTotalElements() - 1; i >= 0; i--)
             {
-                if (Circle.GetNow().Getselect1() == true)
+                if (Circle.GetNow().Getselect1() == true) //если объект выделен
                 {
-                    Circle.Delete(i);
+                    Circle.Delete(i); //удаление элемента
                     k++;
                 }
                 Circle.GetPrevious();
             }
-            if (k == 0)
+            if (k == 0) //если объекты не выделены удаляет последний 
             {
                 Circle.Delete(Circle.GetTotalElements() - 1);
                 Circle.GetPrevious();
@@ -53,23 +53,15 @@ namespace lab41
             }
 
             Circle.Get0();
-            pictureBox.Refresh();
+            pictureBox.Refresh(); // перерисовка pictureBox
         }
 
-        void Delete_Click(object sender, EventArgs e)
+        void Delete_Click(object sender, EventArgs e) //
         {
-            Delete_Process(null);
+            Delete_Process(null); //запуск удаления 
         }
 
-        void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == ((char)Keys.Delete))
-            {
-                Delete_Process(null);
-            }
-        }
-
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e) //нажатие мышки на pictureBox
         {
             
                 if (e.Button == MouseButtons.Left)
@@ -78,30 +70,32 @@ namespace lab41
                     for (int i = 0; i < Circle.GetTotalElements(); i++)
                     {
                    
-                        if (Circle.GetNow().Border(e.X, e.Y) == true)
+                        if (Circle.GetNow().Border(e.X, e.Y) == true) //если попали в круг 
                         {
-                        if (!ModifierKeys.HasFlag(Keys.Control)) {
-                            Circle.GetNow().SelectChange();
+                        if (!ModifierKeys.HasFlag(Keys.Control)) //если нажат ctrl
+                        {
+                            Circle.GetNow().SelectChange(); //меняем выделение с true на false
                         }
                             a++;
                         }
-                        Circle.GetNext();
+                        Circle.GetNext(); //сдвигаем указатель на следующий 
                     }
                     Circle.Get0();
 
-                    if (a == 0)
+                    if (a == 0) //если не попали в круг
                     {
-                        CCircle Lap = new CCircle(e.X, e.Y);
-                        Circle.Add(Lap);
+                        CCircle Lap = new CCircle(e.X, e.Y); //создаем новый круг по полученным координатам
+                        Circle.Add(Lap); // добавляем круг в хранилище
                        
                         for (int i = 0; i < (Circle.GetTotalElements() - 1); i++)
                         {
                             Circle.GetNext();
                         }
-                        Circle.GetNow().SelectChange2();
+                        Circle.GetNow().SelectChange2(); //делаем созданный объект единственно выделенным
+
                         for (int i = Circle.GetTotalElements() - 1; i >= 0; i--)
                         {
-                            if (Circle.GetNow().Getselect1() == true)
+                            if (Circle.GetNow().Getselect1() == true) 
                             {
                                 Circle.GetNow().SelectChange();
                             }
@@ -132,34 +126,35 @@ namespace lab41
         }
     public class CCircle
     {
-        private bool select;
-        private int x;
-        private int y;
-        private const int r = 30;
-        public CCircle()
+        private bool select; //выделение объекта
+        private int x; // координата x круга
+        private int y; // координата y круга 
+        private const int r = 30; // радиус
+        public CCircle() // конструктор по умолчанию
         {
             y = x = 0;
             select = false;
         }
-        public CCircle(int _x, int _y)
+        public CCircle(int _x, int _y) // конструктор с параметрами
         {
             x = _x;
             y = _y;
             select = false;
         }
-        public bool Getselect1()
+        public bool Getselect1()// возвращает выделен ли объект
         {
             return select;
         }
 
-        public void SelectChange() {
+        public void SelectChange()  //метод снимающий выделение, если объект выделен
+        { 
             if (select == true)
             {
                 select = false;
             }
             
         }
-        public void SelectChange2()
+        public void SelectChange2()  //метод выделяющий объект, если он не выделен
         {
             if (select == false)
             {
@@ -172,7 +167,7 @@ namespace lab41
             bool bord = false;
             int _x = Math.Abs(xS - x);
             int _y = Math.Abs(yS - y);
-            if ((int)Math.Sqrt(_x * _x + _y * _y) <= r)
+            if ((int)Math.Sqrt(_x * _x + _y * _y) <= r) // попадание координат в круг
             {
                 if (select == true)
                 {
@@ -187,68 +182,67 @@ namespace lab41
             return bord;
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(PaintEventArgs e) //отрисовка объекта в pictureBox
         {
             Pen Pen1 = new Pen(Brushes.Pink, 4);
             Pen Pen2 = new Pen(Brushes.Black, 4);
       
-            if (select == true)
+            if (select == true) // если он выделен
             {
-                e.Graphics.DrawEllipse(Pen1, x - r, y - r, r * 2, r * 2);
+                e.Graphics.DrawEllipse(Pen1, x - r, y - r, r * 2, r * 2); // отрисовка круга розовым цветом
             }
             else 
             {
-                e.Graphics.DrawEllipse(Pen2, x - r, y - r, r * 2, r * 2);
+                e.Graphics.DrawEllipse(Pen2, x - r, y - r, r * 2, r * 2);// отрисовка круга черным цветом
             }
         }
     }
 
 
-class MyStorage
+class MyStorage // класс хранилище
 {
-    CCircle[] array;
-    int totalElements;
-    int size;
+    CCircle[] array; //массив объектов CCIrcle
+    int totalElements; //количество элементов , находящихся в хранилище
+    int size; //размер хранилища
     int index;
-    public MyStorage()
+    public MyStorage() // конструктор по умолчанию
     {
         index = 0;
         totalElements = 0;
         size = 0;
         array = null;
     }
-    public MyStorage(int size)
+    public MyStorage(int size) // конструктор с параметрами
     {
         index = 0;
         totalElements = 0;
         this.size = size;
-        array = new CCircle[size];
+        array = new CCircle[size]; 
     }
     ~MyStorage()
     {
-        Console.Write("Destructor Storage \n");
+       
     }
     public void ExpandarrElements()//расширение массива
     {
-        CCircle[] newarray = array;
-            array = new CCircle[size * 2];
+        CCircle[] newarray = array; //создание массива newarray идентичного array 
+            array = new CCircle[size * 2]; // на месте array создается новый массив в 2 раза больше
         for (int i = 0; i < size; i++)
         {
-            array[i] = newarray[i];
+            array[i] = newarray[i]; //копирование элементов
         }
-        size = size * 2;
+        size = size * 2; 
     }
-    public void Add(CCircle obj)//добавление
+    public void Add(CCircle obj)//добавление объекта 
     {
-        totalElements++;
-        if (totalElements == size)
+        totalElements++; // увеличиваем общее количество элементво
+        if (totalElements == size) // если количество элементов равно размеру, увеличиваем
                 ExpandarrElements();
-
-            array[totalElements - 1] = obj;
+            array[totalElements - 1] = obj; // добавляем объект в массив
     }
     public void Delete(int a)//удаление 
     {
-        if (totalElements == 0)
+        if (totalElements == 0) 
         {
 
         }
@@ -262,28 +256,28 @@ class MyStorage
             totalElements--;
         }
     }
-    public int GetTotalElements()
+    public int GetTotalElements() //возращение количество элементов в хранилище
     {
         return totalElements;
     }
-    public int GetSize()
+    public int GetSize()// возвращение размера
     {
         return size;
     }
-    public void GetNext()
+    public void GetNext() //метод возвращающий указатель не следующий
     {
         index++;
     }
-    public void GetPrevious()
+    public void GetPrevious()//метод возвращающий указатель не предыдущий
     {
         index--;
     }
-    public void Get0()
-    {
+    public void Get0() //метод присваивающий index 0
+        {
         index = 0;
     }
 
-    public CCircle GetNow()
+    public CCircle GetNow() //возвращает элемент в храниоище
     {
         if (array[index] != null)
             return array[index];
